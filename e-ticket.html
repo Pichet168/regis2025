@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMA DAY 2025 | ลงทะเบียน E-Ticket</title>
+    <script src="https://static.line-scdn.net/liff/2.22.3/sdk.js"></script>
+    <style>
+        /* CSS: แนวคิดมินิมอลและทันสมัย */
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #007bff; /* สีหลักสำหรับปุ่ม Submit */
+            --line-green: #06C755; /* LINE Green */
+            --bg-color: #f7f7f7;
+            --container-bg: #ffffff;
+            --border-color: #ccc;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .registration-container {
+            background-color: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        h2 {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #444;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        /* Event Details Box */
+        .event-details {
+            background-color: #f0f8ff; /* Light Blue for emphasis */
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 35px;
+            font-size: 0.95em;
+            text-align: left;
+            border-left: 5px solid var(--primary-color);
+        }
+        .event-details p {
+            margin: 5px 0;
+        }
+
+        /* Input Fields (Modern Minimalist Style) */
+        input {
+            width: 100%;
+            padding: 14px 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box; /* สำคัญเพื่อให้ padding ไม่ขยายความกว้าง */
+        }
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        /* LINE Login Section */
+        .line-login-box {
+            margin: 30px 0;
+            padding: 25px;
+            border: 1px dashed #06c7554f; /* Green dashed border */
+            border-radius: 10px;
+            background-color: #e6ffec; /* Very light green background */
+        }
+        .line-login-box p {
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .line-button {
+            background-color: var(--line-green);
+            color: #ffffff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .line-button:hover {
+            background-color: #05b04a; 
+        }
+        .line-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            /* Placeholder for actual LINE logo icon */
+            background-color: white; 
+            border-radius: 50%;
+            display: inline-block;
+        }
+        #lineUserIdDisplay {
+            margin-top: 10px;
+            color: #008000;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: none; /* ซ่อนไว้ก่อน */
+        }
+
+        /* Submit Button */
+        .submit-button {
+            background-color: var(--primary-color); 
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 700;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        .submit-button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+        .submit-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .terms {
+            font-size: 0.75em;
+            color: #999;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="registration-container">
+    <header>
+        <h1>GAMA DAY 2025</h1>
+        <p class="subtitle">ลงทะเบียนรับ E-Ticket เพื่อเข้าร่วมงาน</p>
+    </header>
+
+    <div class="event-details">
+        <p><strong>🗓️ EVENT:</strong> GAMA DAY</p>
+        <p><strong>⏰ DATE & TIME:</strong> Sat Feb 22, 2025 | 8:30 AM - 5:30 PM</p>
+    </div>
+
+    <form id="registrationForm">
+        <h2>กรอกข้อมูลลงทะเบียน</h2>
+        
+        <input type="text" id="firstName" placeholder="ชื่อจริง" required>
+        <input type="text" id="lastName" placeholder="นามสกุล" required>
+        <input type="email" id="email" placeholder="อีเมลสำหรับติดต่อ" required>
+        <input type="tel" id="phone" placeholder="เบอร์โทรศัพท์มือถือ" required>
+
+        <div class="line-login-box">
+            <p>กรุณาเข้าสู่ระบบด้วย LINE เพื่อเชื่อมโยง User ID สำหรับรับตั๋วทาง Official Account</p>
+            
+            <button type="button" id="lineLoginButton" class="line-button">
+                <span class="line-icon"></span> เข้าสู่ระบบด้วย LINE
+            </button>
+            
+            <p id="lineUserIdDisplay">✅ เชื่อมต่อ LINE สำเร็จ (User ID ถูกบันทึกแล้ว)</p>
+            <input type="hidden" id="lineUserId" name="lineUserId" value=""> 
+        </div>
+
+        <button type="submit" class="submit-button" id="submitButton" disabled>
+            รับ E-Ticket
+        </button>
+        
+        <p class="terms">การลงทะเบียนนี้ถือว่าท่านยอมรับข้อตกลงและเงื่อนไข</p>
+    </form>
+</div>
+
+<script>
+    // ------------------------------------------------------------------
+    // JAVASCRIPT & LIFF LOGIC
+    // ------------------------------------------------------------------
+    
+    // !!! สำคัญ: ต้องเปลี่ยน YOUR_LIFF_ID เป็น ID ของแอปพลิเคชัน LIFF จริงของคุณ !!!
+    const LIFF_ID = 'YOUR_LIFF_ID'; 
+    const BACKEND_API_URL = 'https://your-backend-server.com/api/register'; // เปลี่ยนเป็น API ของคุณ
+
+    const form = document.getElementById('registrationForm');
+    const lineLoginButton = document.getElementById('lineLoginButton');
+    const lineUserIdInput = document.getElementById('lineUserId');
+    const lineUserIdDisplay = document.getElementById('lineUserIdDisplay');
+    const submitButton = document.getElementById('submitButton');
+
+    let isLineConnected = false;
+
+    // 1. LIFF Initialization
+    async function initializeLIFF() {
+        try {
+            await liff.init({ liffId: LIFF_ID });
+            console.log("LIFF initialized successfully.");
+            checkLoginStatus();
+        } catch (error) {
+            console.error("LIFF initialization failed", error);
+        }
+    }
+
+    // 2. Check LINE Login Status
+    async function checkLoginStatus() {
+        if (!liff.isLoggedIn()) {
+            console.log("Not logged in to LINE.");
+            // ถ้าไม่ได้ล็อกอิน, ปุ่มจะยังคงเป็น "เข้าสู่ระบบด้วย LINE"
+            lineLoginButton.onclick = () => {
+                // Redirect ไปหน้า LINE Login (ใช้ Login Page ของ LIFF)
+                liff.login({ 
+                    redirectUri: window.location.href // กลับมาที่หน้านี้หลัง login
+                });
+            };
+            // ตรวจสอบความสมบูรณ์ของฟอร์มเพื่อเปิดใช้งานปุ่ม Submit
+            checkFormValidity();
+        } else {
+            console.log("Logged in to LINE.");
+            await getUserProfile();
+        }
+    }
+
+    // 3. Get User Profile (User ID)
+    async function getUserProfile() {
+        try {
+            const profile = await liff.getProfile();
+            const userId = profile.userId;
+            
+            // บันทึก User ID และอัปเดต UI
+            lineUserIdInput.value = userId;
+            isLineConnected = true;
+            
+            lineLoginButton.textContent = 'เชื่อมต่อ LINE สำเร็จ';
+            lineLoginButton.style.backgroundColor = '#62d662';
+            lineLoginButton.disabled = true;
+            lineUserIdDisplay.style.display = 'block';
+
+            console.log("LINE User ID:", userId);
+            
+            // ตรวจสอบความสมบูรณ์ของฟอร์มเพื่อเปิดใช้งานปุ่ม Submit
+            checkFormValidity();
+
+        } catch (error) {
+            console.error("Error getting profile:", error);
+            // หากเกิดข้อผิดพลาด ให้กลับไปสู่สถานะต้องล็อกอิน
+            isLineConnected = false;
+            checkFormValidity();
+        }
+    }
+
+    // 4. Check Form and Enable Submit Button
+    function checkFormValidity() {
+        const requiredInputs = form.querySelectorAll('input[required]');
+        let allFieldsFilled = true;
+        
+        requiredInputs.forEach(input => {
+            if (!input.value.trim()) {
+                allFieldsFilled = false;
+            }
+        });
+
+        // ปุ่ม Submit จะถูกเปิดใช้งานเมื่อ: 
+        // 1. กรอกข้อมูลครบ AND 
+        // 2. มีการเชื่อมต่อ LINE แล้ว
+        submitButton.disabled = !(allFieldsFilled && isLineConnected);
+    }
+
+    // 5. Handle Form Submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (submitButton.disabled) {
+            alert('กรุณากรอกข้อมูลและเชื่อมต่อ LINE ให้ครบถ้วน');
+            return;
+        }
+
+        const formData = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            lineUserId: lineUserIdInput.value // LINE User ID ที่ได้มา
+        };
+
+        submitButton.textContent = 'กำลังส่งข้อมูล...';
+        submitButton.disabled = true;
+
+        try {
+            // ส่งข้อมูลไปยัง Backend Server
+            const response = await fetch(BACKEND_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                // การส่งข้อมูลสำเร็จ
+                alert('ลงทะเบียนสำเร็จ! E-Ticket จะถูกส่งไปยัง LINE Official Account ของคุณ');
+                submitButton.textContent = '✅ ลงทะเบียนสำเร็จ';
+                form.reset(); // ล้างฟอร์ม
+                // อาจมีการปิดหน้าต่าง LIFF หรือเปลี่ยนเส้นทาง
+                if (liff.isInClient()) {
+                    liff.closeWindow(); 
+                }
+            } else {
+                // การส่งข้อมูลล้มเหลว
+                const errorData = await response.json();
+                alert(`ลงทะเบียนล้มเหลว: ${errorData.message || 'เกิดข้อผิดพลาดในการส่งข้อมูล'}`);
+            }
+
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('เกิดข้อผิดพลาดในการติดต่อระบบหลังบ้าน กรุณาลองใหม่อีกครั้ง');
+        } finally {
+            submitButton.textContent = 'รับ E-Ticket';
+            submitButton.disabled = false;
+            // ต้องเรียก checkLoginStatus อีกครั้งเพื่อรีเซ็ตสถานะ LIFF
+            initializeLIFF(); 
+        }
+    });
+
+    // 6. Event Listeners for Input Changes
+    form.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', checkFormValidity);
+    });
+
+    // Start the process
+    initializeLIFF();
+
+</script>
+
+</body>
+</html>
